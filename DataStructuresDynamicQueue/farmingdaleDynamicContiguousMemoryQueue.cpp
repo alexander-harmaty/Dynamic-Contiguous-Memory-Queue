@@ -85,14 +85,16 @@ farmingdale::statusCode farmingdale::queue::peek(std::string& retrievedValue) co
 
 farmingdale::statusCode farmingdale::queue::enqueue(std::string addMe) {
 	//Step 1: Check if queue is full, if so, grow the queue as follows....
-	//Step 1a: allocate new memory, size ~= 2x curentCapacity
-	//Step 1b: copy the data, deep copy
-	//Step 1c: Fix the indexes.
-	//Step 1d: call delete[] on the old memory
-	//Step 1e: Set data to the new memory
-	//Step 1f: set the new capacity
+	
 	if (isFull()) {
 		return farmingdale::FAILURE; //change this line to add steps 1a-f
+
+		//Step 1a: allocate new memory, size ~= 2x curentCapacity
+		//Step 1b: copy the data, deep copy
+		//Step 1c: Fix the indexes.
+		//Step 1d: call delete[] on the old memory
+		//Step 1e: Set data to the new memory
+		//Step 1f: set the new capacity
 	}
 	//Step 2: if not, we'll add the item in slot [nextInsert]
 	data[nextInsertIndex] = addMe;
