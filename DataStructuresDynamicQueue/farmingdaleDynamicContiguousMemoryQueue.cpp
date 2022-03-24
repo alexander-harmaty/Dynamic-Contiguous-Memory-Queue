@@ -44,7 +44,7 @@ farmingdale::queue::queue(const queue& copyMe) {
 
 	//Step 4: allocate the buffer (using new) of size currentCapacity, no try catch
 	
-	//Step 5: Copy all of the items in the array from oldest index...NNI into data.
+	//Step 5: Copy all of the items in the array from oldest index...NII into data.
 	int dest = 0;
 	for (int i = copyMe.oldestIndex; i != copyMe.nextInsertIndex; i = nextIndexOf(i)) {
 		data[dest] = copyMe.data[i];
