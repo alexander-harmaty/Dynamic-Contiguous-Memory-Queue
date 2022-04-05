@@ -34,26 +34,23 @@ farmingdale::queue::queue()
 	data = new std::string[currentCapacity];
 }
 
-farmingdale::queue::queue(const queue& copyMe) {
+farmingdale::queue::queue(const queue& copyMe)
+	:
 	//Step 1 : Copy oldest index from copyMe 
-	oldestIndex = copyMe.oldestIndex;
+	oldestIndex(copyMe.oldestIndex),
 	//Step 2: Copy NII from copyMe 
-	nextInsertIndex = copyMe.nextInsertIndex;
+	nextInsertIndex(copyMe.nextInsertIndex),
 	//Step 3: copy the currentCapacity
-	currentCapacity = copyMe.currentCapacity;
-
+	currentCapacity(copyMe.currentCapacity)
+{
 	//Step 4: allocate the buffer (using new) of size currentCapacity, no try catch
-	std::string* data = new std::string[currentCapacity];
+	std::string *copyData = new std::string[currentCapacity];
+	data = copyData;
 
 	//Step 5: Copy all of the items in the array from oldest index...NII into data.
-	int dest = 0;
 	for (int i = copyMe.oldestIndex; i != copyMe.nextInsertIndex; i = nextIndexOf(i)) {
-		data[dest] = copyMe.data[i];
-		dest++;
+		data[i] = copyMe.data[i];
 	}
-	oldestIndex = 0;
-	nextInsertIndex = dest;
-
 }
 
 farmingdale::statusCode farmingdale::queue::dequeue(std::string& removedValue) {
@@ -66,7 +63,7 @@ farmingdale::statusCode farmingdale::queue::dequeue(std::string& removedValue) {
 	removedValue = data[oldestIndex];
 
 	//Step 3: Move index up
-	oldestIndex = (oldestIndex + 1) % INITIAL_QUEUE_SIZE;
+	oldestIndex = nextIndexOf(oldestIndex);
 	//Step 4: Return Success
 	return farmingdale::SUCCESS;
 }
@@ -89,27 +86,36 @@ farmingdale::statusCode farmingdale::queue::enqueue(std::string addMe) {
 	
 	if (isFull()) {
 		//Step 1a: allocate new memory
-		std::string* data = new std::string[currentCapacity * 2]; //aprox *2, size ~= 2x curentCapacity
+		int newCapacity = currentCapacity * 2; //aprox *2, size ~= 2x curentCapacity
+
+		std::string* theNewDataMemory;
+		try {
+			theNewDataMemory = new std::string[newCapacity];
+		}
+		catch (std::bad_alloc) {
+			return farmingdale::FAILURE;
+		}
+		
 		//Step 1b: copy the data, deep copy
-		int dest = 0;
+		int firstData = 0;
 		for (int i = oldestIndex; i != nextInsertIndex; i = nextIndexOf(i)) {
-			data[dest] = data[i];
-			dest++;
+			theNewDataMemory[firstData] = data[i];
+			firstData++;
 		}
 		//Step 1c: Fix the indexes.
 		oldestIndex = 0;
-		nextInsertIndex = dest;
+		nextInsertIndex = firstData;
 		//Step 1d: call delete[] on the old memory
 		delete[] data;
 		//Step 1e: Set data to the new memory
-		data == data;
+		data = theNewDataMemory;
 		//Step 1f: set the new capacity
-		currentCapacity = currentCapacity * 2;
+		currentCapacity = newCapacity;
 	}
 	//Step 2: if not, we'll add the item in slot [nextInsert]
 	data[nextInsertIndex] = addMe;
 	//Step 3: Advance nextInsert to the next slot
-	nextInsertIndex = (nextInsertIndex + 1) % INITIAL_QUEUE_SIZE;
+	nextInsertIndex = nextIndexOf(nextInsertIndex);
 	//Step 4: Return Sucess
 	return farmingdale::SUCCESS;
 
@@ -142,6 +148,10 @@ void farmingdale::queue::printToStream(std::ostream& theStream) {
 		}
 	}
 	theStream << "(newest)";
+}
+
+farmingdale::queue::~queue() {
+	delete[] data;
 }
 
 #else // TEMPLATED_QUEUE
