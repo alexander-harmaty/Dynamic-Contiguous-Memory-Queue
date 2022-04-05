@@ -43,7 +43,8 @@ farmingdale::queue::queue(const queue& copyMe) {
 	currentCapacity = copyMe.currentCapacity;
 
 	//Step 4: allocate the buffer (using new) of size currentCapacity, no try catch
-	
+	std::string* data = new std::string[currentCapacity];
+
 	//Step 5: Copy all of the items in the array from oldest index...NII into data.
 	int dest = 0;
 	for (int i = copyMe.oldestIndex; i != copyMe.nextInsertIndex; i = nextIndexOf(i)) {
@@ -87,14 +88,23 @@ farmingdale::statusCode farmingdale::queue::enqueue(std::string addMe) {
 	//Step 1: Check if queue is full, if so, grow the queue as follows....
 	
 	if (isFull()) {
-		return farmingdale::FAILURE; //change this line to add steps 1a-f
-
-		//Step 1a: allocate new memory, size ~= 2x curentCapacity
+		//Step 1a: allocate new memory
+		std::string* data = new std::string[currentCapacity * 2]; //aprox *2, size ~= 2x curentCapacity
 		//Step 1b: copy the data, deep copy
+		int dest = 0;
+		for (int i = oldestIndex; i != nextInsertIndex; i = nextIndexOf(i)) {
+			data[dest] = data[i];
+			dest++;
+		}
 		//Step 1c: Fix the indexes.
+		oldestIndex = 0;
+		nextInsertIndex = dest;
 		//Step 1d: call delete[] on the old memory
+		delete[] data;
 		//Step 1e: Set data to the new memory
+		data == data;
 		//Step 1f: set the new capacity
+		currentCapacity = currentCapacity * 2;
 	}
 	//Step 2: if not, we'll add the item in slot [nextInsert]
 	data[nextInsertIndex] = addMe;
