@@ -24,12 +24,12 @@ The templated implementation is also in the `farmingdale` namespace and contains
 The header file also includes a definition for the statusCode enum, which is used to indicate the success or failure of various queue operations, and some constants used by the implementation.
 
 ### Methods 
-1. **enqueue** add an element to the back of the queue 
-2. **dequeue** remove an element from the front of the queue 
-3. **peek** get the element at the front of the queue without removing it 
-4. **isEmpty** check if the queue is empty 
-5. **isFull** check if the queue is full 
-6. **currentQueueCapacity** to get the current capacity of the queue.
+1. **enqueue:** add an element to the back of the queue 
+2. **dequeue:** remove an element from the front of the queue 
+3. **peek:** get the element at the front of the queue without removing it 
+4. **isEmpty:** check if the queue is empty 
+5. **isFull:** check if the queue is full 
+6. **currentQueueCapacity:** to get the current capacity of the queue.
 
 Others also include constructor, copy constructor, destructor, == operator.
 
