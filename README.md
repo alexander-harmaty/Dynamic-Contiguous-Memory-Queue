@@ -21,7 +21,7 @@ This is a C++ implementation of a circular queue data structure.
 The queues header file is split into two parts, one for a non-templated implementation of the queue, and one for a templated implementation. 
 The non-templated implementation is in the `farmingdale` namespace and contains a string array of fixed size for storing elements. 
 The templated implementation is also in the `farmingdale` namespace and contains a dynamic array of the type specified in the template parameter.
-The header file also includes a definition for the statusCode enum, which is used to indicate the success or failure of various queue operation tests, and some constants used by the implementation.
+The header file also includes a definition for the statusCode enum, which is used to indicate the success or failure of various queue operations, and some constants used by the implementation.
 
 ### Methods 
 1. **enqueue** add an element to the back of the queue 
