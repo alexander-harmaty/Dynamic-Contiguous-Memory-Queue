@@ -16,6 +16,8 @@ The repository contains files provided by the professor, including incomplete co
 
 The goal of the assignment was to complete the code, create a template version, and pass the tests to prove comprehension of the data structure.
 
+This project was written in C++ using Visual Studio 2019
+
 ## Features
 
 This is a C++ implementation of a circular queue data structure. 
