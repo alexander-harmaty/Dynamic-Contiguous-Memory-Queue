@@ -1,5 +1,6 @@
-# Dynamic Queue Data Structure
+# Dynamic Contiguous Memory Queue
 
+Data Structures
 (FSC-BCS-370-Mod5)
 
 ## Output
@@ -8,7 +9,7 @@
 
 ## Assignment Context
 
-This project was assigned as an exercise to fundamentally understand how a Dynamic Queue functions.
+This project was assigned as an exercise to fundamentally understand how a Dynamic Contiguous Memory Queue functions.
 
 The repository contains files provided by the professor, including incomplete code for the queue methods, and test code to check for the proper functionality of said methods.
 
@@ -27,11 +28,9 @@ The header file also includes a definition for the statusCode enum, which is use
 1. **enqueue:** add an element to the back of the queue 
 2. **dequeue:** remove an element from the front of the queue 
 3. **peek:** get the element at the front of the queue without removing it 
-4. **isEmpty:** check if the queue is empty 
-5. **isFull:** check if the queue is full 
-6. **currentQueueCapacity:** to get the current capacity of the queue.
-
-Others also include constructor, copy constructor, destructor, == operator.
+4. **operator==:** check if two queues are equal 
+5. **constructor:** default constructor 
+6. **rule of threes:** destructor, copy constructor, copy assignment operator
 
 ## Tests
 
