@@ -1,6 +1,7 @@
 # Dynamic Contiguous Memory Queue
 
 Data Structures
+
 (FSC-BCS-370-Mod5)
 
 ## Output
